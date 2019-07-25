@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Register</h1>
+	<form>
+		<!-- Personal info -->
+		<label for="firstname">First Name:</label>
+		<input type="text" id="firstname" placeholder="John" required>
+		<label for="lastname">Last Name:</label>
+		<input type="text" id="lastname" placeholder="Smith" required>
+		<br>
+		<label for="gender">Male</label>
+		<input value="male" name="gender" type="radio" id="gender">
+		<label for="gender">Female</label>
+		<input value="female" name="gender" type="radio" id="gender">
+		<label for="gender">Other</label>
+		<input value="other" name="gender" type="radio" id="gender">
+		<br>
+
+		<!-- User Creds -->
+		<label for="email">Email:</label>
+		<input type="email" id="email" placeholder="your email" required>
+		<label for="pass">Password:</label>
+		<input type="password" id="pass" minlength="5" maxlength="10" required>
+		<br>
+
+		<!-- User Birthday -->
+		<label for="bday">Birthday:</label>
+		<select name="month">
+			<option>Month</option>
+			<option value="jan">Jan</option>
+		</select>
+		<select name="day">
+			<option>Day</option>
+			<option value="22">22</option>
+		</select>
+		<select name="year">
+			<option>Year</option>
+			<option value="1919">1919</option>
+		</select>
+		<br>
+
+		<!-- T & C & Submit -->
+		<label>I agree to the terms and conditions</label>
+		<input type="checkbox">
+		<br>
+		<input type="submit">
+	</form>
+</body>
+</html>
+
+<!-- Could have used divs instead of line breaks -->

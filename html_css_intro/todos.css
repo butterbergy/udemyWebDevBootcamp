@@ -1,0 +1,14 @@
+body {
+	background: orange;
+}
+
+#special {
+	color: yellow;
+	border: 5px dashed green;
+}
+
+.super {
+	color: green;
+	border: 10px solid blue;
+	text-decoration: line-through;
+}

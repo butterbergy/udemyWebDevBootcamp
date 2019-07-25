@@ -1,0 +1,49 @@
+td {
+	width: 100px;
+	height: 100px;
+/*	background: blue;*/
+}
+
+body {
+	text-align: center;
+}
+
+table {
+	margin: auto;
+}
+
+#tl {
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+#tm {
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+#tr {
+	border-bottom: 1px solid black;
+}
+
+#ml {
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+#mm {
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+#mr {
+	border-bottom: 1px solid black;
+}
+
+#bl {
+	border-right: 1px solid black;
+}
+
+#bm {
+	border-right: 1px solid black;
+}

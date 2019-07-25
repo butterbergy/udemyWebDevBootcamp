@@ -1,0 +1,22 @@
+h1 {
+	color: #105DA3;
+	border-color: purple;
+	border-width: 5px;
+	border-style: dashed;
+}
+
+h4 {
+	color: #FF88AA;
+	background: #000000;
+	border: 8px solid green;
+}
+
+li {
+	color: rgba(251, 99, 0, 1);
+	background: #000000;
+}
+
+body {
+	background: url(https://www.nationalgeographic.com/content/dam/animals/thumbs/rights-exempt/mammals/d/domestic-dog_thumb.ngsversion.1546554600360.adapt.1900.1.jpg);
+	background-size: cover;
+}
