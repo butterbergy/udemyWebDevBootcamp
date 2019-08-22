@@ -1,3 +1,12 @@
 <h1>
 	You fell in love with: <%=thing%>
 </h1>
+<% if(thing.toUpperCase() === "RUSTY"){ %>
+	<p>
+	    Good Choice, Rusty is the best	
+    </p>
+<% } %>
+
+<% for(var i = 0; i < 10; i++){ %>
+	<p><%= i %></p>
+<% } %>
