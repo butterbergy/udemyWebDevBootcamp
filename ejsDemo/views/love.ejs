@@ -1,6 +1,6 @@
-<h1>
-	You fell in love with: <%=thing%>
-</h1>
+<% include partials/header %>
+
+<h1>You fell in love with: <%=thing%></h1>
 <% if(thing.toUpperCase() === "RUSTY"){ %>
 	<p>
 	    Good Choice, Rusty is the best	
@@ -10,3 +10,5 @@
 <% for(var i = 0; i < 10; i++){ %>
 	<p><%= i %></p>
 <% } %>
+
+<% include partials/footer %>
