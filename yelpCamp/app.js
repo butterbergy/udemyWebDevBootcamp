@@ -1,21 +1,18 @@
-var express = require("express");
-var bodyParser = require("body-parser");
+var express    = require("express"),
+	bodyParser = require("body-parser"),
+	mongoose   = require("mongoose"),
+	app   	   = express();
 
-var app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
+mongoose.connect("mongodb://localhost:27017/yelpcamp", {useNewUrlParser: true});
 
-var campgrounds = [
-	{name: "Salmon Creek", image: "https://live.staticflickr.com/7150/6495176815_05d090be21_m.jpg"},
-	{name: "Campground 2", image: "https://farm5.staticflickr.com/4186/34533123406_bdc5eeca24_m.jpg"},
-	{name: "Campground 3", image: "https://live.staticflickr.com/7150/6495176815_05d090be21_m.jpg"},
-	{name: "Salmon Creek", image: "https://farm5.staticflickr.com/4186/34533123406_bdc5eeca24_m.jpg"},
-	{name: "Campground 2", image: "https://live.staticflickr.com/7150/6495176815_05d090be21_m.jpg"},
-	{name: "Campground 3", image: "https://live.staticflickr.com/7150/6495176815_05d090be21_m.jpg"},
-	{name: "Salmon Creek", image: "https://live.staticflickr.com/7150/6495176815_05d090be21_m.jpg"},
-	{name: "Campground 2", image: "https://live.staticflickr.com/7150/6495176815_05d090be21_m.jpg"},
-	{name: "Campground 3", image: "https://live.staticflickr.com/7150/6495176815_05d090be21_m.jpg"},
-];
+var campgroundSchema = new mongoose.Schema({
+	name: String,
+	image: String
+});
+
+var Campground = mongoose.model("Campground", campgroundSchema);
 
 
 app.listen(3000, function(){
@@ -27,15 +24,28 @@ app.get("/", function(req, res){
 });
 
 app.get("/campgrounds", function(req, res){
-	res.render("campgrounds", {campgrounds: campgrounds});
+	Campground.find({}, function(err, campgrounds){
+		if(err){
+			console.log(err);
+		}
+		else{
+			res.render("campgrounds", {campgrounds: campgrounds});
+		}
+	});
 });
 
 app.post("/campgrounds", function(req, res){
 	var cgName = req.body.cgName;
 	var cgImage = req.body.cgImage;
 	var newCG = {name: cgName, image: cgImage}
-	campgrounds.push(newCG);
-	res.redirect("/campgrounds");
+	Campground.create(newCG, function(err, campground){
+		if(err){
+			console.log(err);
+		}
+		else{
+			res.redirect("/campgrounds");
+		}
+	});
 });
 
 app.get("/campgrounds/new", function(req, res){
