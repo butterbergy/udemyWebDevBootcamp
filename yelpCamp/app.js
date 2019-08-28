@@ -3,6 +3,7 @@ var express    = require("express"),
 	mongoose   = require("mongoose"),
 	app   	   = express(),
 	Campground = require("./models/campground"),
+	Comment    = require("./models/comment"),
     seedDB     = require("./seeds");
 
 seedDB();
@@ -28,7 +29,7 @@ app.get("/campgrounds", function(req, res){
 			console.log(err);
 		}
 		else{
-			res.render("index", {campgrounds: campgrounds});
+			res.render("campgrounds/index", {campgrounds: campgrounds});
 		}
 	});
 });
@@ -51,7 +52,7 @@ app.post("/campgrounds", function(req, res){
 
 //CREATE - Show form to create new CG
 app.get("/campgrounds/new", function(req, res){
-	res.render("new");
+	res.render("campgrounds/new");
 });
 
 //SHOW
@@ -61,8 +62,41 @@ app.get("/campgrounds/:id", function(req, res){
 			console.log(err);
 		}
 		else{
-			res.render("show", {campground: campground});	
+			res.render("campgrounds/show", {campground: campground});	
 		}
+	});
+});
+
+
+app.get("/campgrounds/:id/comments/new", function(req, res){
+	Campground.findById(req.params.id, function(err, campground){
+		if(err){
+			console.log(err);
+		}
+		else {
+			res.render("comments/new", {campground: campground});
+		}
+	});
+});
+
+app.post("/campgrounds/:id/comments", function(req, res){
+	Campground.findById(req.params.id, function(err, campground){
+		if(err){
+			console.log(err);
+			res.redirect("/campgrounds");
+		}
+		else {
+			Comment.create(req.body.comment, function(err, comment){
+				if(err){
+					console.log(err);
+				}
+				else {
+					campground.comments.push(comment);
+					campground.save();
+					res.redirect("/campgrounds/" + req.params.id);
+				}
+			});
+		}	
 	});
 });
 
