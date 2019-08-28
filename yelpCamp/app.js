@@ -6,11 +6,12 @@ var express    = require("express"),
 	Comment    = require("./models/comment"),
     seedDB     = require("./seeds");
 
-seedDB();
-
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + "/public"));
 mongoose.connect("mongodb://localhost:27017/yelpcamp", {useNewUrlParser: true});
+
+seedDB();
 
 app.listen(3000, function(){
 	console.log("Running yelpcamp server on port 3000");
