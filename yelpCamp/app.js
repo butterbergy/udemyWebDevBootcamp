@@ -1,13 +1,14 @@
 // Package requirements
-var express    = require("express"),
-	bodyParser = require("body-parser"),
-	mongoose   = require("mongoose"),
-	passport   = require("passport"),
-	LocalStrategy = require("passport-local"),
-	Campground = require("./models/campground"),
-	Comment    = require("./models/comment"),
-	User       = require("./models/user"),
-    seedDB     = require("./seeds");
+var express        = require("express"),
+	bodyParser     = require("body-parser"),
+	mongoose       = require("mongoose"),
+	passport       = require("passport"),
+	LocalStrategy  = require("passport-local"),
+	methodOverride = require("method-override"),
+	Campground     = require("./models/campground"),
+	Comment        = require("./models/comment"),
+	User           = require("./models/user"),
+    seedDB         = require("./seeds");
 
 // Route requirements
 var commentRoutes = require("./routes/comments");
@@ -21,10 +22,11 @@ var app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 mongoose.connect("mongodb://localhost:27017/yelpcamp", {useNewUrlParser: true});
 
 // Clear and seed the DB
-seedDB();
+//seedDB();
 
 // Passport Setup
 app.use(require("express-session")({

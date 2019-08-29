@@ -4,7 +4,7 @@ var express    = require("express"),
 
 
 //INDEX - Show all CGs
-router.get("/", function(req, res){
+router.get("/", isLoggedIn, function(req, res){
 	Campground.find({}, function(err, campgrounds){
 		if(err){
 			console.log(err);
@@ -20,7 +20,8 @@ router.post("/", function(req, res){
 	var cgName = req.body.cgName;
 	var cgImage = req.body.cgImage;
 	var cgDescription = req.body.cgDescription;
-	var newCG = {name: cgName, image: cgImage, description: cgDescription};
+	var cgAuthor = {username: req.user.username, id: req.user._id}
+	var newCG = {name: cgName, image: cgImage, description: cgDescription, author: cgAuthor};
 	Campground.create(newCG, function(err, campground){
 		if(err){
 			console.log(err);
@@ -32,11 +33,11 @@ router.post("/", function(req, res){
 });
 
 //CREATE - Show form to create new CG
-router.get("/new", function(req, res){
+router.get("/new", isLoggedIn, function(req, res){
 	res.render("campgrounds/new");
 });
 
-//SHOW
+//SHOW Route
 router.get("/:id", function(req, res){
 	Campground.findById(req.params.id).populate("comments").exec(function(err, campground){
 		if(err){
@@ -47,5 +48,38 @@ router.get("/:id", function(req, res){
 		}
 	});
 });
+
+//EDIT Route
+router.get("/:id/edit", function(req, res){
+	Campground.findById(req.params.id, function(err, campground){
+		if(err){
+			console.log(err);
+		}
+		else {
+			res.render("campgrounds/edit", {campground: campground});
+		}
+	});
+});
+
+//UPDATE Route
+router.put("/:id", function(req, res){
+	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, campground){
+		if(err){
+			console.log(err);
+			res.redirect("/campgrounds");
+		}
+		else {
+			res.redirect("/campgrounds/" + req.params.id);
+		}
+	});
+});
+
+// Middleware
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()){
+		return next();
+	}
+	res.redirect("/login");
+}
 
 module.exports = router;
