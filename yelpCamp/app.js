@@ -5,6 +5,7 @@ var express        = require("express"),
 	passport       = require("passport"),
 	LocalStrategy  = require("passport-local"),
 	methodOverride = require("method-override"),
+	flash          = require("connect-flash"),
 	Campground     = require("./models/campground"),
 	Comment        = require("./models/comment"),
 	User           = require("./models/user"),
@@ -23,6 +24,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
+app.use(flash());
 mongoose.connect("mongodb://localhost:27017/yelpcamp", {useNewUrlParser: true});
 
 // Clear and seed the DB
@@ -48,6 +50,8 @@ app.listen(3000, function(){
 // Make currentUser available in templates
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
 	next();
 });
 
