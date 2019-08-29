@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
-mongoose.connect("mongodb://localhost:27017/yelpcamp", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/yelpcampprices", {useNewUrlParser: true});
 
 // Clear and seed the DB
 //seedDB();

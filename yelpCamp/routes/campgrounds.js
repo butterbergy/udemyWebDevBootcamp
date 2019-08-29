@@ -23,7 +23,8 @@ router.post("/", function(req, res){
 	var cgImage = req.body.cgImage;
 	var cgDescription = req.body.cgDescription;
 	var cgAuthor = {username: req.user.username, id: req.user._id}
-	var newCG = {name: cgName, image: cgImage, description: cgDescription, author: cgAuthor};
+	var cgPrice = req.body.cgPrice;
+	var newCG = {name: cgName, image: cgImage, description: cgDescription, author: cgAuthor, price: cgPrice};
 	Campground.create(newCG, function(err, campground){
 		if(err){
 			console.log(err);
